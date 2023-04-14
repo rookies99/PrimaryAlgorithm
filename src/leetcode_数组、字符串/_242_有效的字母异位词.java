@@ -4,20 +4,28 @@ import java.util.Map;
 public class _242_有效的字母异位词 {
     static class  Solution {
         public boolean isAnagram(String s, String t) {
+            // 直接判断 长度不相等肯定不是异位词
             if (s.length() != t.length()) {
                 return false;
             }
             /*
-            1.哈希表做法，使用哈希表存储每个字母出现的次数，
-            遍历两个字符，统计每个字符的次数，最后比较l两个哈希表是否相等即可
+            1.哈希表:使用哈希表存储每个字母出现的次数，
+            遍历哈希表的value 来进行判断是否相等。哈希表支持Unicode编码
              */
-            Map<String,Integer> hashMap = new HashMap<>();
-            for (char c : s.toCharArray()) {
-                if (hashMap.containsKey(c)) {
-                    hashMap.put(String.valueOf(c), 1);
+            Map<Character,Integer> hashMap = new HashMap<>();
+            for (int i = 0; i < s.length(); i++) {
+                // 循环数组长度，添加到map
+                char sChar = s.charAt(i);
+                char tChar = t.charAt(i);
+                hashMap.put(sChar, hashMap.getOrDefault(sChar, 0) + 1);
+                hashMap.put(tChar, hashMap.getOrDefault(tChar, 0) - 1);
+            }
+            for (Integer value : hashMap.values()) {
+                if (value < 0) {
+                    return false;
                 }
             }
-            return false;
+
             /*
             2.数组：使用26个字母长度的数组
              */
@@ -38,11 +46,13 @@ public class _242_有效的字母异位词 {
 //                System.out.println(letter);
 //            }
 //            return false;
+
+            return true;
         }
     }
 
     public static void main(String[] args) {
         Solution solution = new Solution();
-        System.out.println(solution.isAnagram("gramana", "anagram"));
+        System.out.println(solution.isAnagram("大区的", "区大的"));
     }
 }
