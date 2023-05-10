@@ -56,5 +56,6 @@ public class _242_有效的字母异位词 {
     public static void main(String[] args) {
         Solution solution = new Solution();
         System.out.println(solution.isAnagram("大区的", "区大的"));
+
     }
 }
