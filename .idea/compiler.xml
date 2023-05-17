@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
+    <excludeFromCompile>
+      <file url="file://$PROJECT_DIR$/src/main/java/leetcode_数组字符串/_242_有效的字母异位词.java" />
+    </excludeFromCompile>
     <annotationProcessing>
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Primary algorithm" />
+        <module name="PrimaryAlgorithm" />
       </profile>
     </annotationProcessing>
   </component>
