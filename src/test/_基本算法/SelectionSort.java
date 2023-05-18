@@ -1,4 +1,4 @@
-package 基本算法;
+package _基本算法;
 
 import org.junit.Test;
 
