@@ -2,32 +2,41 @@ package _基本算法;
 
 import org.junit.Test;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class hasDuplicateValue {
 
     @Test
     public void test1() {
-        int[] arr = {10,12,13,14,15,16};
+        Object [] arr = {"","12","13","14","15","16","18"};
+        Set<Object> set = new HashSet<>();
+        set.add("2");
+        set.add("3");
+        set.add("1");
+        set.removeIf("1"::equals);
+        System.out.println(set);
         System.out.println("hasDuplicate(arr) = " + hasDuplicate(arr));
     }
 
-    /**
-     * 数组 重复值判断
-     */
 
-    public boolean hasDuplicate(int[] arr) {
+    /**
+     * 数组 重复值判断  时间复杂度O(n)
+     * @param arr
+     * @return
+     */
+    public boolean hasDuplicate(Object[] arr) {
         int steps = 0;
-        int[] existingNumbers = new int[arr.length+1];
-        for (int i = 0; i < arr.length; i++) {
+        Set<Object> set = new HashSet<>();
+        for (Object o : arr) {
             steps++;
-            if (existingNumbers[arr[i]] >=1) {
+            if (set.contains(o)) {
                 return true;
             } else {
-                existingNumbers[arr[i]]++;
+                set.add(o);
             }
         }
-        System.out.println(Arrays.toString(existingNumbers));
+        System.out.println("steps:"+steps);
+        set.forEach(System.out::println);
         return false;
     }
 }
