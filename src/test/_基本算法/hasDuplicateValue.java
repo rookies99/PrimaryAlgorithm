@@ -9,12 +9,6 @@ public class hasDuplicateValue {
     @Test
     public void test1() {
         Object [] arr = {"","12","13","14","15","16","18"};
-        Set<Object> set = new HashSet<>();
-        set.add("2");
-        set.add("3");
-        set.add("1");
-        set.removeIf("1"::equals);
-        System.out.println(set);
         System.out.println("hasDuplicate(arr) = " + hasDuplicate(arr));
     }
 
@@ -29,14 +23,12 @@ public class hasDuplicateValue {
         Set<Object> set = new HashSet<>();
         for (Object o : arr) {
             steps++;
-            if (set.contains(o)) {
+            if (!set.add(o)) {
                 return true;
-            } else {
-                set.add(o);
             }
         }
-        System.out.println("steps:"+steps);
-        set.forEach(System.out::println);
+//        System.out.println("steps:"+steps);
+//        set.forEach(System.out::println);
         return false;
     }
 }
