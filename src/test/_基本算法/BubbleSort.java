@@ -10,9 +10,9 @@ public class BubbleSort {
     @Test
     public void test1() {
         Random random = new Random();
-        int[] arr = new int[10000];
-        for (int i = 0; i < 10000; i++) {
-            arr[i] = random.nextInt(100000-1+1)+1;
+        int[] arr = new int[200000];
+        for (int i = 0; i < 200000; i++) {
+            arr[i] = random.nextInt(1000000-1+1)+1;
         }
         long start = System.currentTimeMillis();
         System.out.println("bubbleSort(arr) = " + Arrays.toString(bubbleSort(arr)));

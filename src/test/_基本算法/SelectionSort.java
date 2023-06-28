@@ -3,6 +3,7 @@ package _基本算法;
 import org.junit.Test;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class SelectionSort {
 
@@ -11,8 +12,14 @@ public class SelectionSort {
      */
     @Test
     public void test1() {
-        int[] arr = {10,9,8,6,4,3,2,1,0};
+        Random random = new Random();
+        int[] arr = new int[200000];
+        for (int i = 0; i < 200000; i++) {
+            arr[i] = random.nextInt(1000000-1+1)+1;
+        }
+        long start = System.currentTimeMillis();
         System.out.println("Arrays.toString(selectionSort(arr)) = " + Arrays.toString(selectionSort(arr)));
+        System.out.println("执行时间："+(System.currentTimeMillis()-start)+"ms");
     }
 
     /**
