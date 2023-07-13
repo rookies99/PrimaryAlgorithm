@@ -7,17 +7,20 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class Quicksort {
+    private int count = 0;
 
     @Test
     public void test1() {
         Random random = new Random();
-        int[] arr = new int[20000];
-        for (int i = 0; i < 20000; i++) {
+        int[] arr = new int[2000];
+        int[] arr2 = {5, 1, 3, 6, 7, 4};
+        for (int i = 0; i < 2000; i++) {
             arr[i] = random.nextInt(1000000-1+1)+1;
         }
         long start = System.currentTimeMillis();
-        quickSort(arr,0,arr.length-1);
+        quickSort(arr, 0, arr.length - 1);
         System.out.println(Arrays.toString(arr));
+        System.out.println("count: "+count);
         System.out.println("执行时间："+(System.currentTimeMillis()-start)+"ms");
     }
 
@@ -36,7 +39,7 @@ public class Quicksort {
             while (array[left] < pivot) {
                 left+=1;
             }
-            while (array[right] > pivot) {
+            while (right>0 && array[right] > pivot ) {
                 right-=1;
             }
             if (left >= right) {
@@ -61,34 +64,22 @@ public class Quicksort {
             return;
         }
         int pivot_position = sortableArray(arr, left, right); // 将数组以轴分成两部分
+        count++;
         quickSort(arr, left, pivot_position -1);
         quickSort(arr,pivot_position+1,right);
-
-//        // 总是取最右的值作为轴
-//        int pivot_position = right;
-//        int pivot = arr[pivot_position];
-//        right-=1; // 数组将轴排除进行比较
-//        while (true) {
-//            while (arr[left] <= pivot) {
-//                left++;
-//            }
-//            while (arr[right] >= pivot) {
-//                right--;
-//            }
-//            if (left >= right) {
-//                break;
-//            } else {
-//                swap(arr,left,right);
-//            }
-//        }
-//        swap(arr,left,pivot_position);
-//        return arr;
     }
 
+    /**
+     * 下标交换
+     * @param arr
+     * @param pointer_1
+     * @param pointer_2
+     */
     public void swap( int[] arr, int pointer_1, int pointer_2) {
         int temp = arr[pointer_1];
         arr[pointer_1] = arr[pointer_2];
         arr[pointer_2] = temp;
     }
+
 
 }
