@@ -12,9 +12,9 @@ public class Quicksort {
     @Test
     public void test1() {
         Random random = new Random();
-        int[] arr = new int[2000];
-        int[] arr2 = {5, 1, 3, 6, 7, 4};
-        for (int i = 0; i < 2000; i++) {
+        int[] arr = new int[900000];
+        int[] arr2 = {1,3,2,4,6,5,8,9,10,7,15,12,14,13};
+        for (int i = 0; i < 900000; i++) {
             arr[i] = random.nextInt(1000000-1+1)+1;
         }
         long start = System.currentTimeMillis();
@@ -25,48 +25,66 @@ public class Quicksort {
     }
 
     /**
-     * 分区
+     * 双边循环：双指针分区更平衡，更好处理大量重复元素。
      * @param array
      * @return
      */
-    public int sortableArray(int[] array,int left,int right) {
-//        Random random = new Random();
-//        int randomNum = random.nextInt(array.length-1+1);
-        int pivot_position = right;
-        int pivot = array[pivot_position];
-        right -= 1; // 数组将轴排除进行比较
-        while (left < right) {
-            while (array[left] < pivot) {
-                left+=1;
+    public int double_pointer_partition(int[] array,int left,int right) {
+        int pivotIndex = right;
+        int pivot = array[pivotIndex]; // 基准值选择数组最后一个元素
+        right--;// 右指针 从基准值左边一个元素开始，排除基准元素
+        while (left<=right) {
+            while (left <= right && array[left] <= pivot) {
+                left += 1; // 左指针向右移动，找到大于基准元素的值
             }
-            while (right>0 && array[right] > pivot ) {
-                right-=1;
+            while (left <= right && array[right] > pivot) {
+                right -= 1; // 右指针向左移动，找到小于等于基准元素的值
             }
-            if (left >= right) {
-                break;
-            } else {
+            if (left < right) {
                 swap(array, left, right);
             }
         }
-        swap(array, left, pivot_position);
-        return left;
+        swap(array, left, pivotIndex);// 双指针重合 跟基准元素交换位置
+        return left; // 返回基准元素的下标
     }
 
     /**
-     * 快速排序  O(logN)  特点是分区、递归
+     * 单边循环：单指针所以空间复杂度较优
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    public int single_pointer_partition(int[] array,int left,int right) {
+        int pivot = array[right]; // 选择基准元素，这里使用最后一个元素作为基准
+        int i = left; // 初始化 左指针
+
+        // 遍历数组元素，将小于等于基准元素的元素放在左侧
+        for (int j = left; j < right; j++) {
+            if (array[j] <= pivot) {
+                swap(array, i, j);
+                i++; // 指针向右移动
+            }
+        }
+        swap(array, i, right); // 将基准元素放置到正确的位置
+        return i;
+    }
+
+    /**
+     * 快速排序  O(logN)  特点是分区、递归，性能极快
      * @param arr
      * @param left
      * @param right
      * @return
      */
     public void quickSort(int[] arr, int left, int right) {
-        if (left >= right) {
-            return;
+        if (left<right) {
+            int pivot_position = double_pointer_partition(arr, left, right); // 将数组以轴分成两部分
+            count++;
+            quickSort(arr, left, pivot_position -1);
+            quickSort(arr,pivot_position+1,right);
         }
-        int pivot_position = sortableArray(arr, left, right); // 将数组以轴分成两部分
-        count++;
-        quickSort(arr, left, pivot_position -1);
-        quickSort(arr,pivot_position+1,right);
+
     }
 
     /**
@@ -80,6 +98,5 @@ public class Quicksort {
         arr[pointer_1] = arr[pointer_2];
         arr[pointer_2] = temp;
     }
-
 
 }
